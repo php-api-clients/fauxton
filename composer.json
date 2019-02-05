@@ -1,5 +1,5 @@
 {
-    "name": "api-clients/fauxton-client",
+    "name": "api-clients/fauxton",
     "description": "Async version of chemem/fauxton-client built on top of ReactPHP.",
     "type": "library",
     "license": "MIT",
