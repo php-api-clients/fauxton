@@ -17,7 +17,7 @@ fauxton-client is available on Packagist. To install it, type the following on y
 command-line interface:
 
 ```
-composer require chemem/fauxton-client dev-async
+composer require php-api-clients/fauxton-client
 ```
 
 ## Fauxton
@@ -45,8 +45,7 @@ that is also convenient for manipulating data.
 ## Documentation
 
 I advise that you read the [official CouchDB documentation](http://docs.couchdb.org/en/2.0.0/api/index.html) 
-so as to better understand the fauxton-client. Also, reading the [fauxton-client wiki](https://github.com/ace411/fauxton-client/wiki/Introduction) is recommended 
-and therefore, prudent.
+so as to better understand the fauxton-client. Also, check out the examples in the [examples folder](https://github.com/php-api-clients/fauxton-client/tree/master/examples) for more perspective.
 
 ## Running the unit tests
 
@@ -63,7 +62,3 @@ vendor/bin/phpunit -c phpunit.xml.dist
 ## Dealing with problems
 
 Endeavor to create an issue on GitHub when the need arises or send an email to lochbm@gmail.com
-
-## Note
-
-In light of recent modification activity, the fauxton-client is temporarily unusable.
