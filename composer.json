@@ -1,6 +1,6 @@
 {
-    "name": "chemem/fauxton-client",
-    "description": "A simple CouchDB interaction library.",
+    "name": "api-clients/fauxton-client",
+    "description": "Async version of chemem/fauxton-client built on top of ReactPHP.",
     "type": "library",
     "license": "MIT",
     "minimum-stability": "dev",
