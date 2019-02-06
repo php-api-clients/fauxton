@@ -51,17 +51,22 @@ function _create($loop) : Promise
 
 function main($loop) : Promise
 {
-    $action = compose(
-        Http\_readConfig, 
-        partialRight(Http\_toPromise, function (string $result, callable $resolve) use ($loop) {
-            _create($loop)->then(function (\React\Stream\WritableStreamInterface $stream) use ($resolve, $result) {
-                $stream->write($result);
-                $stream->end();
-                $resolve(IO('Data written to file'));
-            });
-        })
+    return Http\_readConfig($loop)->then(
+        function (string $content) use ($loop) {
+            return \React\Promise\resolve(
+                _create($loop)->then(
+                    function ($stream) use ($content) {
+                        $stream->write($content);
+                        $stream->end();
+                        return IO('Data written to file');
+                    },
+                    function ($error) {
+                        return IO($error->getMessage());
+                    }
+                )
+            );
+        }
     );
-    return $action($loop);
 }
 
 $loop = \React\EventLoop\Factory::create();
