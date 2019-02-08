@@ -1,11 +1,9 @@
-# fauxton-client
+# fauxton
 
 [![Build Status](https://travis-ci.org/ace411/fauxton-client.svg?branch=async)](https://travis-ci.org/ace411/fauxton-client)
 [![codecov](https://codecov.io/gh/ace411/fauxton-client/branch/async/graph/badge.svg)](https://codecov.io/gh/ace411/fauxton-client)
 
-A simple CouchDB interaction library.
-
-**Note:** This version of the fauxton-client is dependent on ReactPHP. As such, it offers the cogencies of CouchDB interactions in a non-blocking IO environment.
+Async version of the [fauxton-client](https://github.com/ace411/fauxton-client) powered by [ReactPHP](https://reactphp.org). As such, it offers the cogencies of CouchDB interactions in a non-blocking IO environment.
 
 ## Requirements
 
@@ -13,39 +11,17 @@ A simple CouchDB interaction library.
 
 ## Installation
 
-fauxton-client is available on Packagist. To install it, type the following on your preferred
+The fauxton library is available on Packagist. To install it, type the following on your preferred
 command-line interface:
 
 ```
-composer require php-api-clients/fauxton-client
+composer require php-api-clients/fauxton
 ```
-
-## Fauxton
-
-Fauxton, formerly Futon, is the name of the Couch Database web client. Like its predecessor, Fauxton 
-is a robust web interface designed to ease interactions with CouchDB.
-
-## The client
-
-Fauxton-client is a PHP library written for the sole purpose of performing CouchDB operations such as 
-creating databases, creating indexes and writing Mango queries.
-
-
-## NoSQL vs SQL
-
-Structured Query Language (SQL) is a popular approach to handling back-end information and follows 
-Atomicity Consistency Isolation and Durability (ACID) conventions. Simply put, SQL databases allow 
-those who use them to store unique data in relational, table structures.
-  
-NoSQL, on the other hand, presents a different paradigm to handling data interactions: 
-NoSQL standards are a manifestation of Basically Available Soft-state Eventually consistent (BASE) practices. 
-Couch Database is a NoSQL database that follows a document-oriented, key-value pair format 
-that is also convenient for manipulating data.
 
 ## Documentation
 
-I advise that you read the [official CouchDB documentation](http://docs.couchdb.org/en/2.0.0/api/index.html) 
-so as to better understand the fauxton-client. Also, check out the examples in the [examples folder](https://github.com/php-api-clients/fauxton-client/tree/master/examples) for more perspective.
+I advise that you read the [official CouchDB documentation](http://docs.couchdb.org) 
+so as to better understand fauxton. Also, check out the examples in the [examples folder](https://github.com/php-api-clients/fauxton-client/tree/master/examples) for more perspective.
 
 ## Running the unit tests
 
