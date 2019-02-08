@@ -7,5 +7,6 @@
         "local": "",
         "cloudant": ""
     },
+    "cloudant_host": "",
     "local": true
 }
