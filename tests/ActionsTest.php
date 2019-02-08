@@ -427,4 +427,22 @@ class ActionsTest extends \PHPUnit\Framework\TestCase
                 $this->assertInternalType('string', $ddoc);
             });
     }
+
+    /**
+     * @eris-repeat 5
+     */
+    public function testReplicateFunctionReplicatesDatabase()
+    {
+        $this->forAll(Generator\associative([
+            'source' => Generator\constant('testdb'),
+            'target' => Generator\constant('testdb_foreign')
+        ]))
+            ->then(function (array $opts) {
+                $promise = $this->action->replicate($opts);
+                $replicate = self::blockFn()($promise, $this->eventLoop);
+
+                $this->assertInstanceOf(\React\Promise\Promise::class, $promise);
+                $this->assertInternalType('string', $replicate);
+            });
+    }
 }
