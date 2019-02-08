@@ -1,7 +1,7 @@
 # fauxton
 
-[![Build Status](https://travis-ci.org/ace411/fauxton-client.svg?branch=async)](https://travis-ci.org/ace411/fauxton-client)
-[![codecov](https://codecov.io/gh/ace411/fauxton-client/branch/async/graph/badge.svg)](https://codecov.io/gh/ace411/fauxton-client)
+[![Build Status](https://travis-ci.org/php-api-clients/fauxton.svg?branch=master)](https://travis-ci.org/php-api-clients/fauxton)
+[![codecov](https://codecov.io/gh/php-api-clients/fauxton/branch/master/graph/badge.svg)](https://codecov.io/gh/php-api-clients/fauxton)
 
 Async version of the [fauxton-client](https://github.com/ace411/fauxton-client) powered by [ReactPHP](https://reactphp.org). As such, it offers the cogencies of CouchDB interactions in a non-blocking IO environment.
 
