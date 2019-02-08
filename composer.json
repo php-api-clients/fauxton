@@ -16,7 +16,7 @@
         "giorgiosironi/eris": "~0.10"
     },
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.1",
         "chemem/bingo-functional": "~1",
         "composer/ca-bundle": "~1",
         "clue/buzz-react": "~2",
