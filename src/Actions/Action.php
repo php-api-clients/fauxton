@@ -23,6 +23,8 @@ class Action
 
     const _withDb = 'Chemem\\Fauxton\\Actions\\Action::_withDb';
 
+    const init = 'Chemem\\Fauxton\\Actions\\Action::init';
+
     private $loop;
     
     public function __construct($loop)
@@ -228,5 +230,10 @@ class Action
                 '{ddoc}' => $ddoc
             )
         ));
+    }
+
+    public function replicate(array $opts, bool $continuous = false) : Promise
+    {
+        return self::_resolve($this->loop, 'post', array('replicate' => array()), $opts);
     }
 }
