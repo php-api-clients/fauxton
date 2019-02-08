@@ -22,16 +22,24 @@ class HttpTest extends \PHPUnit\Framework\TestCase
         $this->eventLoop = $this->getMockBuilder('React\\EventLoop\\LoopInterface')->getMock();
     }
 
+    /**
+     * @eris-repeat 5
+     */
     public function testUrlFunctionGeneratesAppropriateRequestUrl()
     {
         $this->forAll(
             Generator\string(),
             Generator\string(),
             Generator\bool(),
-            Generator\int()
+            Generator\string(),
+            Generator\associative([
+                'uuids' => Generator\associative([
+                    '{count}' => Generator\int()
+                ])
+            ])
         )
-            ->then(function (string $user, string $pwd, bool $local, int $count) {
-                $url = Http\_url(array($local, $user, $pwd), array('uuids' => array('{count}' => $count)));
+            ->then(function (string $user, string $pwd, bool $local, string $clHost, array $opt) {
+                $url = Http\_url(array($local, $user, $pwd, $clHost), $opt);
 
                 $this->assertInternalType('string', $url);
                 $this->assertRegExp('/(http|https){1}(:){1}(\/){1}([\w\D\W]*)/', $url);

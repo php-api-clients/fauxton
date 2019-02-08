@@ -41,15 +41,16 @@ function _fetch($loop, string $method, ...$opts) : Promise
 const _credentials = 'Chemem\\Fauxton\\Http\\_credentials';
 function _credentials(string $config) : array
 {
-    $let = PM\letIn(array('username', 'password', 'local'), json_decode($config, true));
+    $let = PM\letIn(array('username', 'password', 'host', 'local'), json_decode($config, true));
 
-    return $let(array('username', 'password', 'local'), function (array $username, array $password, bool $local) {
+    return $let(array('username', 'password', 'host', 'local'), function (array $username, array $password, string $host, bool $local) {
         $credentials = A\curry(A\pluck);
 
         return A\extend(
             array($local),
             array($local ? $credentials($username)('local') : $credentials($username)('cloudant')),
-            array($local ? $credentials($password)('local') : $credentials($password)('cloudant'))
+            array($local ? $credentials($password)('local') : $credentials($password)('cloudant')),
+            array($local ? '' : $host)
         );
     });
 }
@@ -57,10 +58,10 @@ function _credentials(string $config) : array
 const _url = 'Chemem\\Fauxton\\Http\\_url';
 function _url(array $credentials, array $opts) : string
 {
-    $cred = array('local', 'user', 'pass');
+    $cred = array('local', 'user', 'pass', 'host');
     $let = PM\letIn($cred, $credentials);
 
-    return $let($cred, function (bool $local, string $user, string $pass) use ($opts) {
+    return $let($cred, function (bool $local, string $user, string $pass, string $host) use ($opts) {
         $frag = A\head($opts);
         $fragments = A\compose(
             _urlFragments($opts, $local),
@@ -68,7 +69,7 @@ function _url(array $credentials, array $opts) : string
             A\partialRight('rtrim', '?')
         );
 
-        return A\concat('/', _schemeHost($local, $user, $pass), $fragments(State::COUCH_ACTIONS));
+        return A\concat('/', _schemeHost($local, $user, $pass, $host), $fragments(State::COUCH_ACTIONS));
     });
 }
 
@@ -82,13 +83,13 @@ function _urlFragments(array $opts, bool $local) : callable
 }
 
 const _schemeHost = 'Chemem\\Fauxton\\Http\\_schemeHost';
-function _schemeHost(bool $local, string $user, string $pass) : string
+function _schemeHost(bool $local, string $user, string $pass, string $host) : string
 {
     return $local ?
         State::COUCH_URI_LOCAL :
         str_replace(
             array('{cloudantUser}', '{cloudantPass}', '{cloudantHost}'),
-            array($user, $pass, A\concat('.', $user, 'cloudant', 'com')),
+            array($user, $pass, $host),
             State::COUCH_URI_CLOUDANT
         );
 }
