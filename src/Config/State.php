@@ -84,6 +84,14 @@ class State
         'changes' => [
             'local' => '{db}/_changes?{params}',
             'cloudant' => '{db}/_changes?{params}'
+        ],
+        'replicate' => [
+            'local' => '_replicate',
+            'cloudant' => '_replicate'
+        ],
+        'view' => [
+            'local' => '{db}/_design/{ddoc}/_view/{view}?{params}',
+            'cloudant' => '{db}/_design/{ddoc}/_view/{view}?{params}'
         ]
     ];
 }
