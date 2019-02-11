@@ -236,4 +236,35 @@ class Action
     {
         return self::_resolve($this->loop, 'post', array('replicate' => array()), $opts);
     }
+
+    public function queryView(string $database, string $ddoc, string $view, array $opts = array()) : Promise
+    {
+        return self::_resolve($this->loop, 'get', self::_queryParams('view', [
+            '{db}' => $database,
+            '{ddoc}' => $ddoc,
+            '{view}' => $view
+        ], $opts));
+    }
+
+    public function keysQueryView(
+        string $database, 
+        string $ddoc, 
+        string $view, 
+        array $keys, 
+        array $opts = array()
+    )
+    {
+        $resolve = A\partial(self::_resolve, $this->loop, 'post');
+
+        $query = A\compose(
+            A\partial(self::_queryParams, 'view', array(
+                '{db}' => $database, 
+                '{ddoc}' => $ddoc,
+                '{view}' => $view
+            )),
+            A\partialRight($resolve, isset($keys['keys']) ? $keys : array('keys' => $keys))
+        );
+
+        return $query($opts);
+    }
 }

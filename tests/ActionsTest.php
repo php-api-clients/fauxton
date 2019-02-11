@@ -445,4 +445,58 @@ class ActionsTest extends \PHPUnit\Framework\TestCase
                 $this->assertInternalType('string', $replicate);
             });
     }
+
+    /**
+     * @eris-repeat 5
+     */
+    public function testQueryViewGetsDataFromView()
+    {
+        $this->forAll(
+            Generator\constant('testdb'),
+            Generator\elements('id-designdoc', 'rev-designdoc'),
+            Generator\constant('map'),
+            Generator\associative([
+                'descending' => Generator\elements('true', 'false'),
+                'include_docs' => Generator\elements('true', 'false'),
+                'group' => Generator\elements('true', 'false')
+            ])
+        )
+            ->then(function (string $database, string $ddoc, string $view, array $opts) {
+                $promise = $this->action->queryView($database, $ddoc, $view, $opts);
+                $query = self::blockFn()($promise, $this->eventLoop);
+
+                $this->assertInstanceOf(\React\Promise\Promise::class, $promise);
+                $this->assertInternalType('string', $query);
+            });
+    }
+
+    /**
+     * @eris-ratio 0.1
+     * @eris-repeat 5
+     */
+    public function testKeysQueryViewGetsSpecificKeysFromView()
+    {
+        $this->forAll(
+            Generator\constant('testdb'),
+            Generator\elements('id-designdoc', 'rev-designdoc'),
+            Generator\constant('map'),
+            Generator\associative([
+                'keys' => Generator\tuple(
+                    Generator\suchThat(self::idConst, Generator\string())
+                )
+            ]),
+            Generator\associative([
+                'descending' => Generator\elements('true', 'false'),
+                'include_docs' => Generator\elements('true', 'false'),
+                'group' => Generator\elements('true', 'false')
+            ])
+        )
+            ->then(function (string $database, string $ddoc, string $view, array $keys, array $opts) {
+                $promise = $this->action->keysQueryView($database, $ddoc, $view, $keys, $opts);
+                $query = self::blockFn()($promise, $this->eventLoop);
+
+                $this->assertInstanceOf(\React\Promise\Promise::class, $promise);
+                $this->assertInternalType('string', $query);
+            });
+    }
 }
