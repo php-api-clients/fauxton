@@ -27,7 +27,8 @@
             "Chemem\\Fauxton\\": "src/"
         },
         "files": [
-            "src/Http/functions.php"
+            "src/Http/functions.php",
+            "src/Actions/functions.php"
         ]
     },
     "autoload-dev": {
