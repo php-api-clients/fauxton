@@ -499,4 +499,27 @@ class ActionsTest extends \PHPUnit\Framework\TestCase
                 $this->assertInternalType('string', $query);
             });
     }
+
+    /**
+     * @eris-ratio 0.2
+     */
+    public function testUpdateMergeCombinesDocDataArrays()
+    {
+        $this->forAll(
+            Generator\associative([
+                '_id' => Generator\suchThat(self::idConst, Generator\string()),
+                '_rev' => Generator\suchThat(self::revConst, Generator\string()),
+                'names' => Generator\names()
+            ]),
+            Generator\associative([
+                'arbitrary' => Generator\elements('agiro', 'loki', 'carterIII')
+            ])
+        )
+            ->then(function (array $doc, array $arbitrary) {
+                $data = \Chemem\Fauxton\Actions\updateMerge($doc, $arbitrary);
+
+                $this->assertInternalType('array', $data);
+                $this->assertTrue(A\arrayKeysExist($data, 'arbitrary', 'names'));
+            });
+    }
 }
